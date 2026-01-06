@@ -14,12 +14,23 @@
 │  ├─ SUMMARY.md
 │  ├─ README.md
 │  ├─ guide/
+│  │  ├─ index.md
 │  │  ├─ quickstart.md
 │  │  ├─ local-preview.md
 │  │  └─ writing-style.md
-│  ├─ examples/
+│  ├─ hahaha/
+│  │  └─ index.md
+│  ├─ design/
+│  │  ├─ index.md
 │  │  └─ api-design.md
+│  ├─ adr/
+│  │  ├─ index.md
+│  │  └─ 0001-example.md
+│  ├─ discussions/
+│  │  ├─ index.md
+│  │  └─ feature-iteration-example.md
 │  └─ appendix/
+│     ├─ index.md
 │     └─ faq.md
 └─ .github/workflows/deploy.yml   (可选)
 ```
