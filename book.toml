@@ -1,0 +1,17 @@
+[book]
+title = "HahahaDevDocument"
+authors = ["HahahaDevDocument Contributors"]
+language = "zh-CN"
+src = "src"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/jiansongshen/HahahaDevDocument"
+edit-url-template = "https://github.com/jiansongshen/HahahaDevDocument/edit/main/{path}"
+
+
