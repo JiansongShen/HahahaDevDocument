@@ -117,9 +117,9 @@ public:
     Tensor multiply(const Tensor& other) const;
 
 private:
-    std::vector<size_t> m_shape;
-    DataType m_dtype;
-    std::shared_ptr<TensorData> m_data;
+    std::vector<size_t> shape_;
+    DataType dtype_;
+    std::shared_ptr<TensorData> data_;
 };
 ```
 
@@ -288,7 +288,7 @@ Hahaha 项目特别强调**教育价值**，我们相信优秀的代码实现如
 
 ### 我们鼓励记录的内容
 
-当你实现新功能时，我们鼓励在相关文档(在explain中对应到代码目录，比如您实现了core/include/ml/AdamOptimizer.h, 您可以在explain/ml/optimizer.md中添加您的内容)中添加实现思路的记录：
+当你实现新功能时，我们鼓励在相关文档(在explain中对应到代码目录，比如您实现了`core/include/ml/AdamOptimizer.h`, 您可以在`explain/ml/optimizer.md`中添加您的内容)中添加实现思路的记录：
 
 我们完全支持您使用 AI 帮助撰写这些文档，比如您可以通过口头描述您的思路，然后使用 AI 简单润色添加内容（比如不易写的公式等），亦或者不进行润色，保留您的个人风格，我们完全尊重您的选择。
 
