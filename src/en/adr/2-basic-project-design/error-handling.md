@@ -285,3 +285,4 @@ Tensor matmul(const Tensor& a, const Tensor& b) {
 - [ADR-0001: Adopt Modern C++23 Features](../1-cpp23/0001-cpp23.md) - `std::expected` is one of the reasons for choosing C++23
 - [Testing Requirements](test-requirement.md) - Error handling requires corresponding test coverage
 
+

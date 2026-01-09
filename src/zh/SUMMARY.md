@@ -26,6 +26,7 @@
     - [功能添加要求](adr/2-basic-project-design/feature-add-requirement.md)
     - [文档注释要求](adr/2-basic-project-design/doc-comment-requirement.md)
     - [贡献规范](adr/2-basic-project-design/contribution-guideline.md)
+    - [错误处理](adr/2-basic-project-design/error-handling.md)
 
 - [讨论记录](discussions/index.md)
 

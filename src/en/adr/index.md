@@ -22,7 +22,7 @@ ADRs capture **what we finally decided** and **why we decided it**. Their value 
 ## ADR List
 
 ### ADR-0001: Adopt Modern C++23 Features
-- Location: [0001-cpp23.md](0001-cpp23.md)
+- Location: [1-cpp23/0001-cpp23.md](1-cpp23/0001-cpp23.md)
 - Status: Accepted
 - Content: Decision to fully embrace C++23 standard, using modern features like Concepts and stacktrace
 
