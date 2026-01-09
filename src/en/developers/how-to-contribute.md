@@ -44,11 +44,28 @@ git clone https://github.com/YOUR_USERNAME/Hahaha.git
 cd Hahaha
 ```
 
-2. **Add the upstream remote**
+2. **Create a development branch**
+
+Before starting development, please create a new branch **based on the dev branch**. The branch name should clearly describe your work:
 
 ```bash
-git remote add upstream https://github.com/Napbad/Hahaha.git
+# For new features
+git checkout -b feature/[feature-name]-implement
+# Example: feature/adam-optimizer-implement
+
+# For bug fixes
+git checkout -b bug/[bug-description]-fix
+# Example: bug/tensor-broadcast-fix
+
+# For documentation updates
+git checkout -b docs/[doc-content]-update
+# Example: docs/api-documentation-update
 ```
+
+**Branch naming suggestions**:
+- Use lowercase letters and hyphens
+- Keep names concise but descriptive
+- Avoid overly long branch names
 
 3. **Install dependencies**
 
@@ -67,66 +84,31 @@ sudo pacman -S cmake ninja
 sudo dnf install cmake ninja-build
 # or
 sudo yum install cmake ninja-build
-
-# Windows (MSYS2 or WSL)
-pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja
 ```
 
 4. **Build**
 
 ```bash
-# Option 1: Meson (recommended)
+# Use Meson (recommended)
 meson setup builddir
 ninja -C builddir
+
+# After building, the library files will be in the builddir directory
 ```
 
 ### IDE setup
 
 Recommended IDEs:
 
-- **CLion**: native CMake support
-- **VS Code**: install C++ extensions and CMake Tools
+- **CLion**: native support for CMake and Meson projects
+- **VS Code**: install C++ extensions and CMake Tools or Meson tools
 - **Visual Studio**: supports CMake projects
 
 ## Coding standards
 
-### C++ conventions
+For detailed coding standards, please refer to: [Code Style Documentation](code-style.md)
 
-We follow modern C++ best practices:
-
-- **Language version**: C++23
-- **Naming**:
-  - Classes/structs: `PascalCase`
-  - Functions/variables: `pascalCase`
-  - Constants: `PascalCase`
-  - Members: no strict rule, but add necessary getters/setters
-- **Style**:
-  - 4 spaces indentation
-  - keep lines within 100 characters
-  - add appropriate comments for each function
-  - public APIs should have doxygen comments
-
-### Example
-
-```cpp
-// Correct naming and style
-class Tensor {
-public:
-    // Constructor
-    Tensor(const std::vector<size_t>& shape, DataType dtype = DataType::Float32);
-
-    // Public methods
-    Tensor add(const Tensor& other) const;
-    Tensor multiply(const Tensor& other) const;
-
-private:
-    std::vector<size_t> m_shape;
-    DataType m_dtype;
-    std::shared_ptr<TensorData> m_data;
-};
-```
-
-### Commit message format
+## Commit message format
 
 Commit messages should describe the change clearly:
 
@@ -140,9 +122,9 @@ Fixes #123
 
 Common types:
 
-- `feat`: new feature
+- `feature`: new feature
 - `fix`: bug fix
-- `docs`: documentation change
+- `docs`: documentation updates or comment improvements
 - `style`: formatting only
 - `refactor`: refactoring
 - `test`: tests
@@ -153,19 +135,21 @@ Common types:
 ### 1. Create a branch
 
 ```bash
-# Keep main up to date
-git checkout main
-git pull upstream main
+# Keep dev branch up to date (if upstream is configured)
+git checkout dev
+git pull upstream dev
 
-# Create a feature branch
+# Create a feature branch (use clear naming)
 git checkout -b feature/your-feature-name
-# Or a fix branch
-git checkout -b fix/issue-number
+# Or a bug fix branch
+git checkout -b bug/issue-description-fix
+# Or a documentation branch
+git checkout -b docs/documentation-update
 ```
 
 ### 2. Implement
 
-- Follow the coding standards above
+- Follow the necessary [coding standards](code-style.md)
 - Add necessary comments
 - Write unit tests
 - Update related docs
@@ -213,7 +197,7 @@ Use the project formatting script:
 
 ```bash
 git add .
-git commit -m "feat: implement tensor addition
+git commit -m "feature: implement tensor addition
 
 - add Tensor::add method
 - support broadcasting
@@ -289,7 +273,17 @@ Hahaha emphasizes **educational value**. Great code with clear documentation has
 
 ### What to document
 
-When you implement a new feature, we encourage you to record your reasoning in the relevant docs (aligned to code directories). For example, if you implement `core/include/ml/AdamOptimizer.h`, you can add notes to a corresponding explainer page such as `explains/ml/optimizer.md`.
+When you implement, optimize, or fix bugs in code, we encourage you to record your reasoning in the relevant documentation.
+
+**Document location guidelines**:
+
+Documents should be placed in the `src/<lang>/explains/` directory (we encourage you to use English), and the directory structure should correspond to the code directory structure. For example:
+
+- If you implement, optimize, or fix bugs in `core/include/ml/optimizer/AdamOptimizer.h`, you can add relevant content to `src/en/explains/ml/optimizer.md`
+- If you implement, optimize, or fix bugs in `core/include/math/TensorWrapper.h`, you can add relevant content to `src/en/explains/math/tensor-wrapper.md`
+- If you implement, optimize, or fix bugs in `core/include/compute/graph/ComputeNode.h`, you can add relevant content to `src/en/explains/compute/graph.md`
+
+If the corresponding document file does not exist, you can create a new file. The document directory structure should clearly reflect the design thinking of the code.
 
 We fully support using AI to help with writing: you can describe your ideas verbally and let AI polish them (especially for hard-to-write formulas), or keep your own style with minimal polishing—we respect your choice.
 
@@ -355,11 +349,10 @@ When fixing bugs, record:
 
 ### Where to place docs
 
-We recommend placing docs near the corresponding areas, for example:
-
-- Core algorithm notes: `src/<lang>/hahaha/` (e.g. `src/en/hahaha/`)
-- Architecture/design docs: `src/<lang>/design/` (e.g. `src/en/design/`)
-- API docs: in header comments, and synced to relevant docs when needed
+We recommend placing docs in locations corresponding to the code implementation, for example:
+- Core algorithm explanations can be placed in `src/<lang>/hahaha/` (e.g. `src/en/hahaha/`)
+- Architecture design docs can be placed in `src/<lang>/design/` (e.g. `src/en/design/`)
+- API interface documentation can be in header file comments and synced to relevant docs
 
 ### Practical tips
 
@@ -372,10 +365,11 @@ We recommend placing docs near the corresponding areas, for example:
 
 Contributors who document their thinking often get:
 
-- **Faster reviews**: clear docs help reviewers understand quickly; you can submit doc PRs alongside code PRs
+- **Faster reviews**: clear docs help reviewers understand your implementation approach quickly
+- **Documentation and code sync PRs**: you can submit code implementation and documentation as separate PRs, reference the documentation PR in the code PR, and we will merge them together after review
 - **Community recognition**: your thinking becomes valuable knowledge for the project
 - **Learning opportunities**: documentation deepens your own understanding
-- **More impact**: your design ideas may shape the project’s future
+- **More impact**: your design ideas may shape the project's future
 
 We believe: **good code + good docs = excellent contributions**. We don’t strictly require it, but we genuinely encourage it—it increases the value of your work and makes the project better.
 

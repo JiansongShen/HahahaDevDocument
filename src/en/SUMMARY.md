@@ -22,6 +22,7 @@
 
 - [Developer Guide](developers/index.md)
   - [How to Contribute](developers/how-to-contribute.md)
+  - [Code Style](developers/code-style.md)
 
 - [ADR](adr/index.md)
   - [ADR 0001: Cpp23](adr/0001-cpp23.md)

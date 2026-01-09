@@ -43,10 +43,28 @@
    cd Hahaha
    ```
 
-2. **添加上游仓库**
+2. **创建开发分支**
+   
+   在开始开发之前，请**基于dev分支**创建一个新的分支。分支命名应该清晰描述你的工作内容：
+   
    ```bash
-   git remote add upstream https://github.com/Napbad/Hahaha.git
+   # 如果是开发新功能
+   git checkout -b feature/[功能名称]-implement
+   # 例如：feature/adam-optimizer-implement
+   
+   # 如果是修复bug
+   git checkout -b bug/[bug描述]-fix
+   # 例如：bug/tensor-broadcast-fix
+   
+   # 如果是文档更新
+   git checkout -b docs/[文档内容]-update
+   # 例如：docs/api-documentation-update
    ```
+   
+   **分支命名建议**：
+   - 使用小写字母和连字符
+   - 名称要简洁但具有描述性
+   - 避免使用过长的分支名
 
 3. **安装依赖**
    ```bash
@@ -64,66 +82,29 @@
    sudo dnf install cmake ninja-build
    # 或者
    sudo yum install cmake ninja-build
-
-   # Windows (使用 MSYS2 或 WSL)
-   pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja
    ```
 
 4. **构建项目**
    ```bash
-   # 方法1：使用 Meson (推荐)
+   # 使用 Meson (推荐)
    meson setup builddir
    ninja -C builddir
-
+   
+   # 构建完成后，库文件会在 builddir 目录中
    ```
 
 ### IDE 配置
 
 推荐使用以下 IDE：
-- **CLion**：原生支持 CMake 项目
-- **VS Code**：安装 C++ 扩展和 CMake Tools
+- **CLion**：原生支持 CMake 和 Meson 项目
+- **VS Code**：安装 C++ 扩展和 CMake Tools 或者 meson 工具
 - **Visual Studio**：支持 CMake 项目
 
 ## 代码规范
 
-### C++ 编码标准
+详细的代码规范请参考：[代码规范文档](code-style.md)
 
-我们遵循现代 C++ 最佳实践：
-
-- **语言版本**：C++23
-- **命名约定**：
-  - 类和结构体：`PascalCase`
-  - 函数和变量：`pascalCase`
-  - 常量：`PascalCase`
-  - 成员：无特殊要求，但需必要的 getter 和 setter
-
-- **代码风格**：
-  - 使用 4 个空格缩进
-  - 行长度限制在 100 字符以内
-  - 每个函数都有合适的注释
-  - 对外函数接口等应有 doxygen 注释
-
-### 示例代码
-
-```cpp
-// 正确的命名和风格
-class Tensor {
-public:
-    // 构造函数
-    Tensor(const std::vector<size_t>& shape, DataType dtype = DataType::Float32);
-
-    // 公共方法
-    Tensor add(const Tensor& other) const;
-    Tensor multiply(const Tensor& other) const;
-
-private:
-    std::vector<size_t> shape_;
-    DataType dtype_;
-    std::shared_ptr<TensorData> data_;
-};
-```
-
-### 提交信息格式
+## 提交信息格式
 
 提交信息应该清晰描述变更：
 
@@ -136,9 +117,9 @@ Fixes #123
 ```
 
 类型包括：
-- `feat`: 新功能
+- `feature`: 新功能
 - `fix`: 修复bug
-- `docs`: 文档更新
+- `docs`: 文档更新或注释优化
 - `style`: 代码格式调整
 - `refactor`: 重构
 - `test`: 测试相关
@@ -149,19 +130,21 @@ Fixes #123
 ### 1. 创建分支
 
 ```bash
-# 保持主分支同步
-git checkout main
-git pull upstream main
+# 保持主分支同步（如果已配置upstream）
+git checkout dev
+git pull upstream dev
 
-# 创建特性分支
+# 创建特性分支（使用清晰的命名）
 git checkout -b feature/your-feature-name
 # 或者修复分支
-git checkout -b fix/issue-number
+git checkout -b bug/issue-description-fix
+# 或者文档分支
+git checkout -b docs/documentation-update
 ```
 
 ### 2. 编写代码
 
-- 遵循上述代码规范
+- 遵循必要的[代码规范](code-style.md)
 - 添加必要的注释
 - 编写单元测试
 - 更新相关文档
@@ -210,7 +193,7 @@ ninja -C builddir test-ml
 ```bash
 # 提交本地更改
 git add .
-git commit -m "feat: 实现张量加法操作
+git commit -m "feature: 实现张量加法操作
 
 - 添加 Tensor::add 方法
 - 支持广播机制
@@ -288,7 +271,17 @@ Hahaha 项目特别强调**教育价值**，我们相信优秀的代码实现如
 
 ### 我们鼓励记录的内容
 
-当你实现新功能时，我们鼓励在相关文档(在explain中对应到代码目录，比如您实现了`core/include/ml/AdamOptimizer.h`, 您可以在`explain/ml/optimizer.md`中添加您的内容)中添加实现思路的记录：
+当你实现新功能时，我们鼓励在相关文档中添加实现思路的记录。
+
+**文档位置说明**：
+
+文档应该放在 `src/<lang>/explains/` 目录(我们提倡您使用英语)下，目录结构应该与代码目录结构相对应。例如：
+
+- 如果您实现或者优化或者修复bug了 `core/include/ml/optimizer/AdamOptimizer.h`，可以在 `src/zh/explains/ml/optimizer.md` 中添加相关内容
+- 如果您实现或者优化或者修复bug了 `core/include/math/TensorWrapper.h`，可以在 `src/zh/explains/math/tensor-wrapper.md` 中添加相关内容
+- 如果您实现或者优化或者修复bug了 `core/include/compute/graph/ComputeNode.h`，可以在 `src/zh/explains/compute/graph.md` 中添加相关内容
+
+如果对应的文档文件不存在，您可以创建新文件。文档的目录结构应该清晰反映代码的设计思路。
 
 我们完全支持您使用 AI 帮助撰写这些文档，比如您可以通过口头描述您的思路，然后使用 AI 简单润色添加内容（比如不易写的公式等），亦或者不进行润色，保留您的个人风格，我们完全尊重您的选择。
 
@@ -367,8 +360,8 @@ Hahaha 项目特别强调**教育价值**，我们相信优秀的代码实现如
 
 积极记录实现思路的贡献者往往会获得：
 
-- **更快的代码审查**：清晰的文档有助于 reviewer 快速理解，您可以把代码实现，
-    文档实现同时pr,在代码的pr中添加文档的pr,审核通过后我们会同时接受它们
+- **更快的代码审查**：清晰的文档有助于 reviewer 快速理解您的实现思路
+- **文档与代码同步PR**：您可以将代码实现和文档实现分别提交PR，在代码PR中引用文档PR，审核通过后我们会同时合并它们
 - **社区认可**：你的思考过程将成为项目宝贵的知识资产
 - **学习机会**：通过文档化加深对实现的理解
 - **影响力提升**：你的设计思路可能影响项目的未来发展
