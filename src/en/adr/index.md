@@ -15,5 +15,18 @@ ADRs capture **what we finally decided** and **why we decided it**. Their value 
 
 ## Numbering and naming
 
-- File name: `NNNN-title.md` (e.g. `0001-auth-strategy.md`)
+- File name: `NNNN-title.md` (e.g. `0001-cpp23.md`)
 - Title format: `ADR-NNNN: ...`
+- Directory organization: Related ADRs can be organized in subdirectories (e.g. `1-cpp23/`, `2-basic-project-design/`)
+
+## ADR List
+
+### ADR-0001: Adopt Modern C++23 Features
+- Location: [0001-cpp23.md](0001-cpp23.md)
+- Status: Accepted
+- Content: Decision to fully embrace C++23 standard, using modern features like Concepts and stacktrace
+
+### ADR-0002: Basic Project Design
+- Location: [2-basic-project-design/](2-basic-project-design/)
+- Status: Accepted
+- Content: Includes basic design decisions such as project structure, CI/CD requirements, dependency management, testing requirements, feature addition requirements, documentation and comment requirements, contribution guidelines, and error handling guidelines

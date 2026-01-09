@@ -25,7 +25,16 @@
   - [Code Style](developers/code-style.md)
 
 - [ADR](adr/index.md)
-  - [ADR 0001: Cpp23](adr/0001-cpp23.md)
+  - [ADR-0001: Adopt Modern C++23 Features](adr/0001-cpp23.md)
+  - [ADR-0002: Basic Project Design](adr/2-basic-project-design/0002-basic-project-design.md)
+    - [Project Basic Structure](adr/2-basic-project-design/project-basic-structure.md)
+    - [CI/CD Requirements](adr/2-basic-project-design/cicd-requirement.md)
+    - [Dependency Management](adr/2-basic-project-design/dependency-management.md)
+    - [Testing Requirements](adr/2-basic-project-design/test-requirement.md)
+    - [Feature Addition Requirements](adr/2-basic-project-design/feature-add-requirement.md)
+    - [Documentation and Comment Requirements](adr/2-basic-project-design/doc-comment-requirement.md)
+    - [Contribution Guidelines](adr/2-basic-project-design/contribution-guideline.md)
+    - [Error Handling](adr/2-basic-project-design/error-handling.md)
 
 - [Discussions](discussions/index.md)
   - [Changelog](discussions/changelog.md)
